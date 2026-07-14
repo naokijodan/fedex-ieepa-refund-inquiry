@@ -98,6 +98,7 @@
       <strong>質問：このメールのボタンからポータルにアクセスし、貨物情報を入力しても問題ないでしょうか？</strong>
       <ul style="margin-top:8px; margin-bottom:0;">
         <li>このメールは本物のFedExからのものと考えてよいか</li>
+        <li>差出人アドレスが普段（FedEx@message.fedex.com）と違い、今回は小文字（fedex@message.fedex.com）になっている点は問題ないか</li>
         <li>アクセスする場合、メール内のボタンからで良いか、それともFedEx公式サイトから辿るべきか</li>
         <li>ポータル内の「データ共有への同意（オプトイン）」はしても良いか</li>
       </ul>
@@ -130,6 +131,34 @@
   </section>
 
   <section>
+    <h2>送信元アドレスと認証結果（Gmailの「メッセージのソースを表示」より）</h2>
+    <div class="img-wrap"><img src="img5.png" alt="Gmailのメッセージソース画面：差出人 fedex@message.fedex.com、SPF・DKIM・DMARCすべてPASS（宛先アドレスは黒塗り）"></div>
+    <p class="caption">5. Gmailで確認した送信元情報と認証結果（宛先は黒塗り）</p>
+
+    <h3>気になっている点</h3>
+    <ul>
+      <li>普段届くFedExのメールの差出人は <strong>FedEx@message.fedex.com</strong>（先頭が大文字）</li>
+      <li>今回のメールは <strong>fedex@message.fedex.com</strong>（すべて小文字）で、大文字・小文字だけが違う</li>
+    </ul>
+
+    <h3>確認できた事実（Fact）</h3>
+    <table>
+      <tr><th>差出人ドメイン</th><td>@より後ろは普段と同じ <strong>message.fedex.com</strong>（ドメイン自体の違いはなし）</td></tr>
+      <tr><th>SPF</th><td>PASS（送信元IP: 136.147.178.149）</td></tr>
+      <tr><th>DKIM</th><td>PASS（ドメイン: message.fedex.com）</td></tr>
+      <tr><th>DMARC</th><td>PASS</td></tr>
+      <tr><th>送信元IPの所有者</th><td>whois調査の結果、<strong>Salesforce, Inc.</strong> の保有IP。Salesforceは大手企業が案内メールの配信に広く使っているサービス（Salesforce Marketing Cloud）の運営会社。</td></tr>
+    </table>
+    <p style="font-size:0.9rem;">SPF・DKIM・DMARCは「そのメールが、差出人ドメイン（message.fedex.com）の正規の設定を通って送られたか」を機械的に検証する仕組みで、今回は3つともPASSしています。</p>
+
+    <h3>参考（推測を含む）</h3>
+    <ul>
+      <li>メールの仕組み上、@より前の大文字・小文字は一般に同じものとして扱われるため、この違いだけでは本物・偽物の判断材料にはなりにくいと考えています（配信システム側の表記変更でも起こり得ます）。</li>
+      <li>ただし素人判断はせず、最終的な判断をご相談したいです。</li>
+    </ul>
+  </section>
+
+  <section>
     <h2>メール全文の日本語訳</h2>
     <div class="translation">
       <p><strong>FedExをご利用のお客様へ</strong></p>
@@ -157,8 +186,9 @@
   <section>
     <h2>補足：受信状況</h2>
     <table>
-      <tr><th>受信日</th><td>2026年7月（Gmailで受信）</td></tr>
-      <tr><th>差出人表示</th><td>FedEx</td></tr>
+      <tr><th>受信日</th><td>2026年7月14日（Gmailで受信）</td></tr>
+      <tr><th>差出人</th><td>FedEx &lt;fedex@message.fedex.com&gt;</td></tr>
+      <tr><th>件名</th><td>IEEPA tariff refunds: FedEx® customer portal live now</td></tr>
       <tr><th>現在の対応</th><td>ボタンは未クリック・ポータル未アクセス。講師の確認待ち。</td></tr>
     </table>
   </section>
